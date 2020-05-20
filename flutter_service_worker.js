@@ -1,7 +1,9 @@
 'use strict';
+const MANIFEST = 'flutter-app-manifest';
+const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  ".git/COMMIT_EDITMSG": "d920426d41f32e3ea44d59a37accd638",
+  ".git/COMMIT_EDITMSG": "29088ed22a5c9d8fdddb0b8d7dbd95a4",
 ".git/config": "d4d807ed4f9fb08f5eb5d5a6e7e3cc71",
 ".git/description": "a0a7c3fff21f2aea3cfa1d0316dd816c",
 ".git/FETCH_HEAD": "ffc5b500d13f11307f60d6f1e7b65ff8",
@@ -18,11 +20,11 @@ const RESOURCES = {
 ".git/hooks/pre-receive.sample": "2ad18ec82c20af7b5926ed9cea6aeedd",
 ".git/hooks/prepare-commit-msg.sample": "2b5c047bdb474555e1787db32b2d2fc5",
 ".git/hooks/update.sample": "517f14b9239689dff8bda3022ebd9004",
-".git/index": "08f92e9f28e0fc960c936c85f7f4c0a0",
+".git/index": "9b0f5bb7ea7133426961947e34626510",
 ".git/info/exclude": "036208b4a1ab4a235d75c181e685e5a3",
-".git/logs/HEAD": "f81ce46026a37e496dff19bbefadfdb6",
-".git/logs/refs/heads/master": "f81ce46026a37e496dff19bbefadfdb6",
-".git/logs/refs/remotes/origin/master": "31379edf75f57d51180bb0efcc2d696a",
+".git/logs/HEAD": "9c10bebcbd19825b5b54b03ce7f3195e",
+".git/logs/refs/heads/master": "9c10bebcbd19825b5b54b03ce7f3195e",
+".git/logs/refs/remotes/origin/master": "cb17ecf561b7bb2d250c6e60e16261e8",
 ".git/objects/03/eaddffb9c0e55fb7b5f9b378d9134d8d75dd37": "87850ce0a3dd72f458581004b58ac0d6",
 ".git/objects/04/ac71b975afa488d3cc05a8ea412ae4b5f3b6fe": "65bd1527f3f120283d30e1454835cb67",
 ".git/objects/08/d3778584a21072bd7d683a1fd4f9697b7fcb80": "715f2eea3daad1c712746cd3e89f9971",
@@ -54,15 +56,18 @@ const RESOURCES = {
 ".git/objects/5e/ffbe739f66f9f25613f46f3f2a29158513d6e7": "87a0ac73e12d01cd9752fc58d8e696e3",
 ".git/objects/64/a311be33e74324756ba83f646c64c4d8d51ff9": "7bde55df31dcb3cbf20d00aaf75b6419",
 ".git/objects/65/dc816d8e5d91660d83e359e4c1e898255986cc": "982fa6fd26e0b5f0c81f7679c2a92754",
+".git/objects/69/565bfd6b07d1a0c8f030452e64606b9983f35a": "0706ed734f5ef26a04d2d84c10e07216",
 ".git/objects/69/e025dca0482c6ba4a77ddf3bb99c9cefb2dfc4": "ea0415e6b3f86fd49c5185d10a4b6c95",
 ".git/objects/6b/e0ab6968e5279e6659e0b2e923be1cb372fae6": "68ee229ab277a89e3ce1523af060414e",
 ".git/objects/6d/ad03670b79c42f9a2e686568e402ae9f3b69c4": "3009e10c519c2047979d3a6ca068c2b9",
+".git/objects/75/b4848f42be33525459c02dc83907c01c711227": "c3df5857fdf7587f5a9573497f383960",
 ".git/objects/7c/1f0b14143178b500c22be08ee1ae1293ef49dc": "51961b24df0c7b16859dceb4224131bf",
 ".git/objects/7e/86669404a38e88a71f2ae2d1dc41e1f1216d78": "63891e89f4433792569a32208b481ee3",
 ".git/objects/81/0337fcab9374ea7916511a5b9b59c1fe38c5fd": "cc99e87ef5a5ad26f76eb93e555d98fa",
 ".git/objects/83/71bed7f1f526492d52ac0770366b36be6d6940": "772e3b6a023b8c65a2a9bc02baa6a6ea",
 ".git/objects/88/cfd48dff1169879ba46840804b412fe02fefd6": "e42aaae6a4cbfbc9f6326f1fa9e3380c",
 ".git/objects/8a/aa46ac1ae21512746f852a42ba87e4165dfdd1": "1d8820d345e38b30de033aa4b5a23e7b",
+".git/objects/8b/40e6a5e43b41e4770b764d7592b5ec3926b1d8": "d4ffadf8253888a23db2c626e28c70b5",
 ".git/objects/8c/f25de87e23d1ea748cf83875494330d8048aa3": "36684d13f2c52ff8f1eeec52c2c2a4c5",
 ".git/objects/95/19e1d75e8e60fc461d42dceff7162076484747": "87166efde232eca9c4f1ad4118b6d046",
 ".git/objects/95/d61c247b9fe4ff6826114149e2a6a7235ceb2c": "a7bda601f8b877a6f4285bcda4d59e82",
@@ -87,47 +92,127 @@ const RESOURCES = {
 ".git/objects/e9/430974715b083fe71f8ef71bd20a14f0b61535": "e7ce1ef3eecae3fe12df90b84d1bfa39",
 ".git/objects/f1/9fce1f7a536c10a9eab936713afd635543ea73": "570ce3314980c0d54ef073c6bc4af06a",
 ".git/objects/f7/0192dee2d9e0fe1327fe48f76fccffa73c77b3": "b873c8b145adbb302e880e495495d3ff",
+".git/objects/fa/3f8964c5345330491bcf4a9e5b5cb41f310c67": "11a653e21c073039e6083240f8a88d85",
 ".git/objects/fb/8bde06d252890cb9845e8f1f721cca9e15c4b7": "421ad96159691c4cb374448d5c708c2e",
 ".git/objects/fc/565ec170b7fd55cbf422b8188a6f64eddda60e": "c1d5b622c8e63d1865785872c9d4a21d",
+".git/objects/fe/44a80c4127070cc0a0e823e0e39404888a84a1": "3d4f8bb7afdd552afe1d2cd70807498c",
 ".git/ORIG_HEAD": "6e5496df3684cf845ab217b97c862c07",
-".git/refs/heads/master": "ed0e89501ba8b2fdebd89793554b5977",
-".git/refs/remotes/origin/master": "ed0e89501ba8b2fdebd89793554b5977",
-"assets/AssetManifest.json": "6c6529f331a0639f06b3c29d0ed6efc9",
-"assets/FontManifest.json": "c25cc06afa4b1c73f11b0f4a62381d84",
+".git/refs/heads/master": "8f0f91034675448e0ddc8f6c92a83dcc",
+".git/refs/remotes/origin/master": "8f0f91034675448e0ddc8f6c92a83dcc",
+"assets/AssetManifest.json": "c7db10a3c2a238dd6e8965bb483b4d07",
+"assets/FontManifest.json": "8632ce1c2d5df7a8fbccc8a50c54f503",
 "assets/fonts/iconfont.ttf": "b87c541a2f6cde5b07dc2017ff3cb063",
 "assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
-"assets/LICENSE": "0ac18ad6ff87514910dbe2bd3189197e",
+"assets/LICENSE": "f77f901db584f3109e25678a029acdfe",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
+"assets/packages/open_iconic_flutter/assets/open-iconic.woff": "3cf97837524dd7445e9d1462e3c4afe2",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "index.html": "d46a1e9514c19bdb7dc58dd3c123dd40",
 "/": "d46a1e9514c19bdb7dc58dd3c123dd40",
-"main.dart.js": "71a6825be789e846e255bfa234830839",
+"main.dart.js": "8dc4bf9cc8af337aad6493c7ab253834",
 "manifest.json": "d5aea7eacd4d28cd882d6223267bdc5e",
 "README.md": "f3262971961b87688f647da5003c08d0"
 };
 
-self.addEventListener('activate', function (event) {
-  event.waitUntil(
-    caches.keys().then(function (cacheName) {
-      return caches.delete(cacheName);
-    }).then(function (_) {
-      return caches.open(CACHE_NAME);
-    }).then(function (cache) {
-      return cache.addAll(Object.keys(RESOURCES));
+// The application shell files that are downloaded before a service worker can
+// start.
+const CORE = [
+  "main.dart.js",
+"/",
+"index.html",
+"assets/LICENSE",
+"assets/AssetManifest.json",
+"assets/FontManifest.json"];
+
+// During install, the TEMP cache is populated with the application shell files.
+self.addEventListener("install", (event) => {
+  return event.waitUntil(
+    caches.open(TEMP).then((cache) => {
+      return cache.addAll(CORE);
     })
   );
 });
 
-self.addEventListener('fetch', function (event) {
-  event.respondWith(
-    caches.match(event.request)
-      .then(function (response) {
-        if (response) {
-          return response;
+// During activate, the cache is populated with the temp files downloaded in
+// install. If this service worker is upgrading from one with a saved
+// MANIFEST, then use this to retain unchanged resource files.
+self.addEventListener("activate", function(event) {
+  return event.waitUntil(async function() {
+    try {
+      var contentCache = await caches.open(CACHE_NAME);
+      var tempCache = await caches.open(TEMP);
+      var manifestCache = await caches.open(MANIFEST);
+      var manifest = await manifestCache.match('manifest');
+
+      // When there is no prior manifest, clear the entire cache.
+      if (!manifest) {
+        await caches.delete(CACHE_NAME);
+        for (var request of await tempCache.keys()) {
+          var response = await tempCache.match(request);
+          await contentCache.put(request, response);
         }
-        return fetch(event.request);
+        await caches.delete(TEMP);
+        // Save the manifest to make future upgrades efficient.
+        await manifestCache.put('manifest', new Response(JSON.stringify(RESOURCES)));
+        return;
+      }
+
+      var oldManifest = await manifest.json();
+      var origin = self.location.origin;
+      for (var request of await contentCache.keys()) {
+        var key = request.url.substring(origin.length + 1);
+        if (key == "") {
+          key = "/";
+        }
+        // If a resource from the old manifest is not in the new cache, or if
+        // the MD5 sum has changed, delete it. Otherwise the resource is left
+        // in the cache and can be reused by the new service worker.
+        if (!RESOURCES[key] || RESOURCES[key] != oldManifest[key]) {
+          await contentCache.delete(request);
+        }
+      }
+      // Populate the cache with the app shell TEMP files, potentially overwriting
+      // cache files preserved above.
+      for (var request of await tempCache.keys()) {
+        var response = await tempCache.match(request);
+        await contentCache.put(request, response);
+      }
+      await caches.delete(TEMP);
+      // Save the manifest to make future upgrades efficient.
+      await manifestCache.put('manifest', new Response(JSON.stringify(RESOURCES)));
+      return;
+    } catch (err) {
+      // On an unhandled exception the state of the cache cannot be guaranteed.
+      console.error('Failed to upgrade service worker: ' + err);
+      await caches.delete(CACHE_NAME);
+      await caches.delete(TEMP);
+      await caches.delete(MANIFEST);
+    }
+  }());
+});
+
+// The fetch handler redirects requests for RESOURCE files to the service
+// worker cache.
+self.addEventListener("fetch", (event) => {
+  var origin = self.location.origin;
+  var key = event.request.url.substring(origin.length + 1);
+  // If the URL is not the the RESOURCE list, skip the cache.
+  if (!RESOURCES[key]) {
+    return event.respondWith(fetch(event.request));
+  }
+  event.respondWith(caches.open(CACHE_NAME)
+    .then((cache) =>  {
+      return cache.match(event.request).then((response) => {
+        // Either respond with the cached resource, or perform a fetch and
+        // lazily populate the cache.
+        return response || fetch(event.request).then((response) => {
+          cache.put(event.request, response.clone());
+          return response;
+        });
       })
+    })
   );
 });
+
